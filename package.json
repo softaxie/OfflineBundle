@@ -1,5 +1,5 @@
 {
-  "name": "@cap-offline/offline-bundle",
+  "name": "@capacitor-offline/offline-bundle",
   "version": "0.0.3",
   "description": "Capacitor offline bundle plugin for app web updates",
   "license": "MIT",

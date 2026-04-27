@@ -1,4 +1,4 @@
-# @cap-offline/offline-bundle
+# @capacitor-offline/offline-bundle
 
 Capacitor 8+ 的離線包更新插件。
 
@@ -10,9 +10,9 @@ Capacitor 8+ 的離線包更新插件。
 ### 1) 安裝
 
 ```bash
-npm i @cap-offline/offline-bundle
+npm i @capacitor-offline/offline-bundle
 # 或
-yarn add @cap-offline/offline-bundle
+yarn add @capacitor-offline/offline-bundle
 ```
 
 ```bash
@@ -49,7 +49,7 @@ npx cap sync
 ### 4) App 啟動時接入
 
 ```ts
-import { startOfflineBundleUpdater } from "@cap-offline/offline-bundle";
+import { startOfflineBundleUpdater } from "@capacitor-offline/offline-bundle";
 
 await startOfflineBundleUpdater({
   manifestUrl: import.meta.env.VITE_OFFLINE_MANIFEST_URL,
@@ -103,7 +103,7 @@ offline-bundle-package --config ./offline-bundle.config.json
 import {
   OfflineBundle,
   startOfflineBundleUpdater,
-} from "@cap-offline/offline-bundle";
+} from "@capacitor-offline/offline-bundle";
 ```
 
 ## 方法
@@ -307,7 +307,7 @@ export default config;
 ### 3. App 啟動接入
 
 ```ts
-import { startOfflineBundleUpdater } from "@cap-offline/offline-bundle";
+import { startOfflineBundleUpdater } from "@capacitor-offline/offline-bundle";
 
 await startOfflineBundleUpdater({
   manifestUrl: import.meta.env.VITE_OFFLINE_MANIFEST_URL,
