@@ -19,8 +19,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "com.android.tools.build:gradle:${project.ext.androidGradlePluginVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
     }
 }
 
@@ -62,7 +62,7 @@ repositories {
 
 dependencies {
     implementation project(':capacitor-android')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
-    testImplementation "junit:junit:$junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${project.ext.kotlinVersion}"
+    implementation "androidx.appcompat:appcompat:${project.ext.androidxAppCompatVersion}"
+    testImplementation "junit:junit:${project.ext.junitVersion}"
 }
