@@ -1,0 +1,23 @@
+# Android build outputs
+android/build/
+android/.gradle/
+
+# SwiftPM local metadata/cache
+.swiftpm/
+
+# Xcode local user files (extra safety)
+**/*.xcuserdata/
+**/*.xcuserstate
+
+# OS metadata
+.DS_Store
+
+android/.project
+
+# JS package artifacts
+node_modules/
+dist/
+*.tgz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

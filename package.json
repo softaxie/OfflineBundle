@@ -1,0 +1,57 @@
+{
+  "name": "@cap-offline/offline-bundle",
+  "version": "0.0.3",
+  "description": "Capacitor offline bundle plugin for app web updates",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "offline-bundle-manifest": "./cli/generate-manifest.mjs",
+    "offline-bundle-package": "./cli/package-bundle.mjs"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "pack:dry": "npm pack --dry-run",
+    "publish:dry": "npm publish --dry-run --access public",
+    "publish:public": "npm publish --access public"
+  },
+  "files": [
+    "dist",
+    "android/src/main/",
+    "android/build.gradle",
+    "cli",
+    "ios/Sources",
+    "Package.swift",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@capacitor/app": ">=8.0.0",
+    "@capacitor/core": ">=8.0.0",
+    "@capacitor/file-transfer": ">=2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
+  }
+}
