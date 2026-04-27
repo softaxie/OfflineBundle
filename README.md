@@ -96,6 +96,31 @@ offline-bundle-package --config ./offline-bundle.config.json
 4. 上傳 `manifest` 和 `zip` 到服務端
 5. App 下次啟動/回前台後按 manifest 檢查並更新
 
+## 宿主項目兼容與排錯（Android）
+
+本插件默認「宿主優先」：會優先讀宿主工程的 `rootProject.ext` 版本配置。  
+如果宿主編譯報版本相關錯誤，可在宿主 Android 根配置（`android/build.gradle` 或 `variables.gradle`）顯式覆蓋：
+
+```gradle
+ext {
+  kotlinVersion = '1.9.24'
+  androidGradlePluginVersion = '8.2.2'
+  compileSdkVersion = 34
+  targetSdkVersion = 34
+  minSdkVersion = 24
+  javaVersion = 17
+}
+```
+
+常見修復流程：
+
+```bash
+cd android && ./gradlew clean
+cd ..
+npx cap sync android
+```
+
+如果是 yarn workspace 項目，建議確保插件安裝在 app 本地 `node_modules`（例如使用 workspace `nohoist`），避免 Capacitor 掃描不到插件。
 
 ## 導出
 

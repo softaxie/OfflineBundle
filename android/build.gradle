@@ -1,6 +1,16 @@
+def extOrDefault = { String key, Object fallback ->
+    return rootProject.ext.has(key) ? rootProject.ext.get(key) : fallback
+}
+
 ext {
-    junitVersion = project.hasProperty('junitVersion') ? rootProject.ext.junitVersion : '4.13.2'
-    androidxAppCompatVersion = project.hasProperty('androidxAppCompatVersion') ? rootProject.ext.androidxAppCompatVersion : '1.7.1'
+    junitVersion = extOrDefault('junitVersion', '4.13.2')
+    androidxAppCompatVersion = extOrDefault('androidxAppCompatVersion', '1.7.1')
+    kotlinVersion = extOrDefault('kotlinVersion', extOrDefault('kotlin_version', '1.9.24'))
+    androidGradlePluginVersion = extOrDefault('androidGradlePluginVersion', '8.2.2')
+    compileSdkVersionFallback = extOrDefault('compileSdkVersion', 34)
+    minSdkVersionFallback = extOrDefault('minSdkVersion', 24)
+    targetSdkVersionFallback = extOrDefault('targetSdkVersion', compileSdkVersionFallback)
+    javaVersionFallback = extOrDefault('javaVersion', 17)
 }
 
 buildscript {
@@ -9,8 +19,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0'
+        classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     }
 }
 
@@ -19,10 +29,10 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace = "com.oj.plugins.offlinebundle"
-    compileSdk = project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 36
+    compileSdk = compileSdkVersionFallback
     defaultConfig {
-        minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 24
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 36
+        minSdkVersion minSdkVersionFallback
+        targetSdkVersion targetSdkVersionFallback
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,11 +47,11 @@ android {
         abortOnError = false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.toVersion(javaVersionFallback)
+        targetCompatibility JavaVersion.toVersion(javaVersionFallback)
     }
     kotlinOptions {
-        jvmTarget = '21'
+        jvmTarget = String.valueOf(javaVersionFallback)
     }
 }
 
