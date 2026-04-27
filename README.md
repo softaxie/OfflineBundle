@@ -96,35 +96,6 @@ offline-bundle-package --config ./offline-bundle.config.json
 4. 上傳 `manifest` 和 `zip` 到服務端
 5. App 下次啟動/回前台後按 manifest 檢查並更新
 
-## 發布到 npm
-
-插件庫自身可以在 `package.json` 裡使用這組 scripts：
-
-```json
-{
-  "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "pack:dry": "npm pack --dry-run",
-    "publish:dry": "npm publish --dry-run --access public",
-    "publish:public": "npm publish --access public"
-  }
-}
-```
-
-```bash
-# 1) 登錄 npm（首次或 token 過期時）
-npm login
-
-# 2) 構建插件
-npm run build
-
-# 3) 檢查發佈內容（建議先跑）
-npm run pack:dry
-npm run publish:dry
-
-# 4) 發布（scope 包公開發布）
-npm run publish:public
-```
 
 ## 導出
 
