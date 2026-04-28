@@ -104,7 +104,7 @@ offline-bundle-package --config ./offline-bundle.config.json
 ```gradle
 ext {
   kotlinVersion = '1.9.24'
-  androidGradlePluginVersion = '8.2.2'
+  androidGradlePluginVersion = '8.9.1'
   compileSdkVersion = 34
   targetSdkVersion = 34
   minSdkVersion = 24

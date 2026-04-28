@@ -1,6 +1,6 @@
 {
   "name": "@capacitor-offline/offline-bundle",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Capacitor offline bundle plugin for app web updates",
   "license": "MIT",
   "type": "module",
@@ -44,6 +44,9 @@
     "@capacitor/file-transfer": ">=2.0.0"
   },
   "devDependencies": {
+    "@capacitor/app": "^8.1.0",
+    "@capacitor/core": "^8.3.1",
+    "@capacitor/file-transfer": "^2.0.4",
     "typescript": "^5.6.3"
   },
   "capacitor": {

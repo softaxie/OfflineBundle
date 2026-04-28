@@ -6,7 +6,7 @@ ext {
     junitVersion = extOrDefault('junitVersion', '4.13.2')
     androidxAppCompatVersion = extOrDefault('androidxAppCompatVersion', '1.7.1')
     kotlinVersion = extOrDefault('kotlinVersion', extOrDefault('kotlin_version', '1.9.24'))
-    androidGradlePluginVersion = extOrDefault('androidGradlePluginVersion', '8.2.2')
+    androidGradlePluginVersion = extOrDefault('androidGradlePluginVersion', '8.9.1')
     compileSdkVersionFallback = extOrDefault('compileSdkVersion', 34)
     minSdkVersionFallback = extOrDefault('minSdkVersion', 24)
     targetSdkVersionFallback = extOrDefault('targetSdkVersion', compileSdkVersionFallback)
@@ -19,8 +19,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${project.ext.androidGradlePluginVersion}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${project.ext.kotlinVersion}"
+        def agpVersion = rootProject.ext.has('androidGradlePluginVersion')
+            ? rootProject.ext.get('androidGradlePluginVersion')
+            : '8.9.1'
+        def kotlinPluginVersion = rootProject.ext.has('kotlinVersion')
+            ? rootProject.ext.get('kotlinVersion')
+            : (rootProject.ext.has('kotlin_version') ? rootProject.ext.get('kotlin_version') : '1.9.24')
+        classpath "com.android.tools.build:gradle:${agpVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinPluginVersion}"
     }
 }
 
