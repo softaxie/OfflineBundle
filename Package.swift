@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapacitorOfflineOfflineBundle",
+    name: "CapacitorOfflinePluginOfflineBundle",
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "CapacitorOfflineOfflineBundle",
+            name: "CapacitorOfflinePluginOfflineBundle",
             targets: ["OfflineBundlePlugin"]
         )
     ],
