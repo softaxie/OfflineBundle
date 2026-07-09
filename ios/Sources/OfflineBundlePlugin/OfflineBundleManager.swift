@@ -66,6 +66,7 @@ final class OfflineBundleManager {
             clearLocalBundle()
             return
         }
+        persistServerBasePath(bundleDir.path)
         DispatchQueue.main.async { [weak self] in
             self?.viewController?.setServerBasePath(path: bundleDir.path)
         }
@@ -137,6 +138,7 @@ final class OfflineBundleManager {
 
     private func applyUpdateNow() -> Bool {
         guard let bundleDir = Self.localBundleURLIfExists(config: config) else { return false }
+        persistServerBasePath(bundleDir.path)
         DispatchQueue.main.async { [weak self] in
             self?.viewController?.setServerBasePath(path: bundleDir.path)
         }
@@ -273,6 +275,11 @@ final class OfflineBundleManager {
             return 0
         }
         return a > b ? 1 : -1
+    }
+
+    private func persistServerBasePath(_ path: String) {
+        UserDefaults.standard.set(path, forKey: "serverBasePath")
+        NSLog("[OfflineBundle] persisted server base path: %@", path)
     }
 
     private func clearLocalBundle() {
