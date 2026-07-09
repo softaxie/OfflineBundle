@@ -83,8 +83,10 @@ class OfflineBundleManager(
                 return
             }
 
-            bridge?.setServerBasePath(bundleDir.absolutePath)
-            Log.i(TAG, "loadLocalIfExists() using local bundle path=${bundleDir.absolutePath}")
+            // 此時 localServer 尚未初始化（Bridge.loadWebView 在 plugin load 之後執行）
+            // 改為寫入 SharedPreferences，讓 loadWebView 自動恢復離線包路徑
+            persistServerBasePath(bundleDir.absolutePath)
+            Log.i(TAG, "loadLocalIfExists() persisted local bundle path=${bundleDir.absolutePath}")
         }.onFailure { error ->
             Log.e(TAG, "loadLocalIfExists() error", error)
         }
@@ -160,6 +162,7 @@ class OfflineBundleManager(
         if (!indexFile.exists()) return false
         bridge?.activity?.runOnUiThread {
             bridge.setServerBasePath(bundleDir.absolutePath)
+            persistServerBasePath(bundleDir.absolutePath)
             bridge.reload()
         }
         return true
@@ -312,6 +315,23 @@ class OfflineBundleManager(
             return leftLong.compareTo(rightLong)
         }
         return a.compareTo(b)
+    }
+
+    /**
+     * 將離線包路徑持久化到 Capacitor WebView 的 SharedPreferences 中，
+     * 確保下次啟動或 Activity 重建（如字體大小變更）時，
+     * Bridge.loadWebView() 能自動透過 setServerBasePath() 恢復離線包服務。
+     */
+    private fun persistServerBasePath(path: String) {
+        runCatching {
+            val prefs = context.getSharedPreferences(
+                "CapWebViewSettings", Context.MODE_PRIVATE
+            )
+            prefs.edit().putString("serverBasePath", path).apply()
+            Log.i(TAG, "persisted server base path: \$path")
+        }.onFailure { error ->
+            Log.e(TAG, "persistServerBasePath() failed", error)
+        }
     }
 
     private fun clearLocalBundle() {
